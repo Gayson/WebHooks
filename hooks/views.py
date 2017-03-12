@@ -22,7 +22,9 @@ def updateRepo(request,index):
 		print("********************")
 		print(request.body)
 		signature=request.META.get('HTTP_X_Hub_Signature')
-		return "test header"
+		return HttpResponse("test header")
+	except:
+		return HttpResponse("test error")
 
 	try:
 		(status, output)=commands.getstatusoutput('bash %s %s'%(bashlist[pos],pathlist[pos]))
