@@ -12,8 +12,8 @@ pathlist=[
 ]
 
 bashlist=[
-'~/github/Webhooks/bashfile/pybash',
-'~/github/Webhooks/bashfile/springbootbash',
+'~/github/WebHooks/bashfile/pybash',
+'~/github/WebHooks/bashfile/springbootbash',
 ]
 
 portlist=[
@@ -31,7 +31,7 @@ def updateRepo(request,index):
 
 	try:
 		signature=request.META.get('HTTP_X_HUB_SIGNATURE')
-		signlist=signature.split(str='=')
+		signlist=signature.split('=', 1)
 		algo=signlist[0]
 		key=signlist[1]
 
@@ -44,8 +44,10 @@ def updateRepo(request,index):
 				return HttpResponse("success:\n%s"%(output))
 			except:
 				return HttpResponse("false:\nbashfile error")
+		else:
+			return HttpResponse("false:\nsecret unmatch.")
 	except:
-		return HttpResponse("test error")
+		return HttpResponse("false:\ndecode error.")
 
 def index(request):
 	return HttpResponse("Hello, Index")
